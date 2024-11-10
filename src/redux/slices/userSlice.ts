@@ -12,7 +12,7 @@ const initialState: userState = {
   user: null,
 };
 
-const fetchLogin = createAsyncThunk(
+export const fetchLogin = createAsyncThunk(
   "user/login",
   async (user: { username: string; password: string }, thunkApi) => {
     try {
@@ -79,3 +79,5 @@ const userSlice = createSlice({
     })
   },
 });
+
+export default userSlice
