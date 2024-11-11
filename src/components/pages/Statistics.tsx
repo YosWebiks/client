@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../redux/store";
 
 export default function Statistics() {
-  return (
-    <div>Statistics</div>
-  )
+  const { user } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log({ isLoggedIn: !!user?._id, isAdmin: !!user?.isAdmin });
+    if (user?._id && !user?.isAdmin) navigate("/votes");
+    if (!user?._id) navigate("/login");
+  }, []);
+  return <div>Statistics</div>;
 }
