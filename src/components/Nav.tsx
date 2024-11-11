@@ -1,9 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { RootState, useAppSelector } from "../redux/store";
+import { NavLink, useNavigate } from "react-router-dom";
+import { RootState, useAppDispatch, useAppSelector } from "../redux/store";
+import userSlice from "../redux/slices/userSlice";
 
 export default function Nav() {
   const user = useAppSelector((state: RootState) => state.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+    dispatch(userSlice.actions.logout());
+    localStorage.removeItem("authorization");
+    navigate('/login')
+  };
 
   return (
     <div className="nav">
@@ -13,7 +22,7 @@ export default function Nav() {
           {user.user.isAdmin && (
             <NavLink to={"/statistics"}>Statistics</NavLink>
           )}
-          <button onClick={() => alert("Log out successfully")}>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
         <>

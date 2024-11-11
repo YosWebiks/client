@@ -28,6 +28,7 @@ export const fetchLogin = createAsyncThunk(
       }
       const data = await res.json();
       // thunkApi.fulfillWithValue(data);
+      localStorage.setItem("Authorization", data.token)
       return data
     } catch (err) {
       thunkApi.rejectWithValue("Can't login, please try again");
@@ -63,7 +64,11 @@ const fetchRegister = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logout:(state)=>{
+      state.user = null
+    }
+  },
   extraReducers: (builder: ActionReducerMapBuilder<userState>) => {
     builder.addCase(fetchLogin.pending, (state, action)=>{
         state.status = DataStatus.LOADING
