@@ -1,15 +1,57 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const { user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
-
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     if (user?._id) {
       navigate("/votes");
     }
   }, []);
-  return <div>Register</div>;
+
+  const handleRegister = async () => {
+    try {
+        const res = await fetch("http://localhost:2222/api/users/register", {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({username, password, isAdmin}),
+          });
+          const data = await res.json();
+    } catch (err) {
+        console.log({err})
+    }
+  }
+
+  return (
+    <div>
+      {" "}
+      <input
+        type="text"
+        placeholder="User Name"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <input
+        type="checkbox"
+        checked={isAdmin}
+        onChange={(e) => setIsAdmin(e.target.checked)}
+      />
+      <button onClick={handleRegister}>
+        Login
+      </button>
+    </div>
+  );
 }

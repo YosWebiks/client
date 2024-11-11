@@ -36,13 +36,17 @@ export default function VoteCard({ candidate }: props) {
   };
 
   return (
-    <div className="vote-card">
+    <div
+      className={`vote-card ${
+        user?.votedFor === candidate._id ? "my-vote" : ""
+      }`}
+    >
       <h1>
         {candidate.name}
         <span className="badge">{candidate.votes}</span>
       </h1>
 
-      <button onClick={handleVote}>VOTE</button>
+      <button onClick={handleVote} disabled={user?.hasVoted}>VOTE</button>
     </div>
   );
 }
