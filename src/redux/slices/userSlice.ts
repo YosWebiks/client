@@ -28,8 +28,31 @@ export const fetchLogin = createAsyncThunk(
       }
       const data = await res.json();
       // thunkApi.fulfillWithValue(data);
-      localStorage.setItem("Authorization", data.token)
-      return data
+      localStorage.setItem("Authorization", data.token);
+      return data;
+    } catch (err) {
+      thunkApi.rejectWithValue("Can't login, please try again");
+    }
+  }
+);
+
+export const fetchProfileUpdate = createAsyncThunk(
+  "user/profile",
+  async (id: string, thunkApi) => {
+    try {
+      const res = await fetch("http://localhost:2222/api/users/profile", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage["Authorization"]!,
+        },
+        body: JSON.stringify({ id }),
+      });
+      if (res.status != 200) {
+        thunkApi.rejectWithValue("Can't update profile, please try again");
+      }
+      const data = await res.json();
+      return data;
     } catch (err) {
       thunkApi.rejectWithValue("Can't login, please try again");
     }
@@ -65,25 +88,30 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    logout:(state)=>{
-      state.user = null
-    }
+    logout: (state) => {
+      state.user = null;
+    },
   },
   extraReducers: (builder: ActionReducerMapBuilder<userState>) => {
-    builder.addCase(fetchLogin.pending, (state, action)=>{
-        state.status = DataStatus.LOADING
-        state.error = null
-        state.user = null
-    }).addCase(fetchLogin.fulfilled, (state, action)=>{
-        state.status = DataStatus.SUCCESS
-        state.error = null
-        state.user = action.payload as unknown as IUser
-    }).addCase(fetchLogin.rejected, (state, action)=>{
-        state.status = DataStatus.FAILED
-        state.error = action.error as string
-        state.user = null
-    })
+    builder
+      .addCase(fetchLogin.pending, (state, action) => {
+        state.status = DataStatus.LOADING;
+        state.error = null;
+        state.user = null;
+      })
+      .addCase(fetchLogin.fulfilled, (state, action) => {
+        state.status = DataStatus.SUCCESS;
+        state.error = null;
+        state.user = action.payload as unknown as IUser;
+      })
+      .addCase(fetchLogin.rejected, (state, action) => {
+        state.status = DataStatus.FAILED;
+        state.error = action.error as string;
+        state.user = null;
+      }).addCase(fetchProfileUpdate.fulfilled, (state, action) => {
+        state.user = {...state.user, ...action.payload};
+      });
   },
 });
 
-export default userSlice
+export default userSlice;
