@@ -6,6 +6,7 @@ import userSlice, {
   fetchProfileUpdate,
 } from "../../redux/slices/userSlice";
 import { fetchCandidates } from "../../redux/slices/candidatesSlice";
+import { socket } from "../../main";
 
 interface props {
   candidate: ICandidate;
@@ -30,6 +31,7 @@ export default function VoteCard({ candidate }: props) {
       });
       dispatch(fetchCandidates());
       dispatch(fetchProfileUpdate(user?._id!));
+      socket.emit("newVote")
     } catch (err) {
       console.log(err);
     }
