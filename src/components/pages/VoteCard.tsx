@@ -29,7 +29,7 @@ export default function VoteCard({ candidate }: props) {
           userId: user?._id,
         }),
       });
-      dispatch(fetchCandidates());
+    //   dispatch(fetchCandidates());
       dispatch(fetchProfileUpdate(user?._id!));
       socket.emit("newVote")
     } catch (err) {
@@ -48,7 +48,10 @@ export default function VoteCard({ candidate }: props) {
         <span className="badge">{candidate.votes}</span>
       </h1>
 
-      <button onClick={handleVote} disabled={user?.hasVoted}>VOTE</button>
+      <button
+        onClick={handleVote}
+        // disabled={user?.hasVoted}
+        >VOTE</button>
     </div>
   );
 }

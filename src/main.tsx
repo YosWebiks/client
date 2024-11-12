@@ -7,8 +7,8 @@ import store from "./redux/store.ts";
 import { BrowserRouter } from "react-router-dom";
 import { io } from "socket.io-client";
 
+export const socket = io("http://localhost:2222");
 
-export const socket = io('http://localhost:2222')
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
