@@ -44,7 +44,7 @@ export const fetchProfileUpdate = createAsyncThunk(
   async (id: string, thunkApi) => {
     try {
       const res = await fetch(
-        `https://server-vp9y.onrender.com//api/users/profile`,
+        `https://server-vp9y.onrender.com/api/users/profile`,
         {
           method: "post",
           headers: {
