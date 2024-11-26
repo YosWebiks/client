@@ -17,9 +17,7 @@ export const fetchLogin = createAsyncThunk(
   async (user: { username: string; password: string }, thunkApi) => {
     try {
       const res = await fetch(
-        `${
-          import.meta.env.BASE_URL || "http://localhost:2222"
-        }/api/users/login`,
+        `https://server-vp9y.onrender.com/api/users/login`,
         {
           method: "post",
           headers: {
@@ -46,9 +44,7 @@ export const fetchProfileUpdate = createAsyncThunk(
   async (id: string, thunkApi) => {
     try {
       const res = await fetch(
-        `${
-          import.meta.env.BASE_URL || "http://localhost:2222"
-        }/api/users/profile`,
+        `https://server-vp9y.onrender.com//api/users/profile`,
         {
           method: "post",
           headers: {

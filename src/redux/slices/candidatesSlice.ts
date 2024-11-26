@@ -17,7 +17,7 @@ export const fetchCandidates = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await fetch(
-        `${import.meta.env.BASE_URL || "http://localhost:2222"}/api/candidates/`,
+        `https://server-vp9y.onrender.com/api/candidates/`,
         {
           headers: {
             Authorization: localStorage["Authorization"]!,
