@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +24,8 @@ export default function Register() {
             body: JSON.stringify({username, password, isAdmin}),
           });
           const data = await res.json();
+          console.log(data);
+          navigate("/login");
     } catch (err) {
         console.log({err})
     }
@@ -50,7 +52,7 @@ export default function Register() {
         onChange={(e) => setIsAdmin(e.target.checked)}
       />
       <button onClick={handleRegister}>
-        Login
+        Register
       </button>
     </div>
   );

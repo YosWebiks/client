@@ -1,11 +1,6 @@
-import React from "react";
 import { ICandidate } from "../../types/candidates";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import userSlice, {
-  fetchLogin,
-  fetchProfileUpdate,
-} from "../../redux/slices/userSlice";
-import { fetchCandidates } from "../../redux/slices/candidatesSlice";
+import { fetchProfileUpdate } from "../../redux/slices/userSlice";
 import { socket } from "../../main";
 
 interface props {
@@ -29,9 +24,10 @@ export default function VoteCard({ candidate }: props) {
           userId: user?._id,
         }),
       });
-    //   dispatch(fetchCandidates());
+      console.log(data);
+      //   dispatch(fetchCandidates());
       dispatch(fetchProfileUpdate(user?._id!));
-      socket.emit("newVote")
+      socket.emit("newVote");
     } catch (err) {
       console.log(err);
     }
@@ -51,7 +47,9 @@ export default function VoteCard({ candidate }: props) {
       <button
         onClick={handleVote}
         // disabled={user?.hasVoted}
-        >VOTE</button>
+      >
+        VOTE
+      </button>
     </div>
   );
 }

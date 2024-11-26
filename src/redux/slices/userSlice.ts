@@ -69,7 +69,7 @@ const userSlice = createSlice({
   },
   extraReducers: (builder: ActionReducerMapBuilder<userState>) => {
     builder
-      .addCase(fetchLogin.pending, (state, action) => {
+      .addCase(fetchLogin.pending, (state) => {
         state.status = DataStatus.LOADING;
         state.error = null;
         state.user = null;
@@ -83,8 +83,9 @@ const userSlice = createSlice({
         state.status = DataStatus.FAILED;
         state.error = action.error as string;
         state.user = null;
-      }).addCase(fetchProfileUpdate.fulfilled, (state, action) => {
-        state.user = {...state.user, ...action.payload};
+      })
+      .addCase(fetchProfileUpdate.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
       });
   },
 });
