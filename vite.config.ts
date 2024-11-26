@@ -5,4 +5,5 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "https://server-vp9y.onrender.com/",
+  mode: "production",
 });
