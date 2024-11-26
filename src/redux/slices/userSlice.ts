@@ -16,7 +16,7 @@ export const fetchLogin = createAsyncThunk(
   "user/login",
   async (user: { username: string; password: string }, thunkApi) => {
     try {
-      const res = await fetch("http://localhost:2222/api/users/login", {
+      const res = await fetch(`${process.env.BASE_URL || "http://localhost:2222"}/api/users/login`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export const fetchProfileUpdate = createAsyncThunk(
   "user/profile",
   async (id: string, thunkApi) => {
     try {
-      const res = await fetch("http://localhost:2222/api/users/profile", {
+      const res = await fetch(`${process.env.BASE_URL ||"http://localhost:2222"}/api/users/profile`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",

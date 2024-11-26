@@ -16,11 +16,14 @@ export const fetchCandidates = createAsyncThunk(
   "candidates/getList",
   async (_, thunkApi) => {
     try {
-      const res = await fetch("http://localhost:2222/api/candidates/", {
-        headers: {
-          Authorization: localStorage["Authorization"]!,
-        },
-      });
+      const res = await fetch(
+        `${process.env.BASE_URL || "http://localhost:2222"}/api/candidates/`,
+        {
+          headers: {
+            Authorization: localStorage["Authorization"]!,
+          },
+        }
+      );
       if (res.status != 200) {
         thunkApi.rejectWithValue("Can't get the list, please try again");
       }
