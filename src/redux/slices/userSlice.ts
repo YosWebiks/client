@@ -16,13 +16,18 @@ export const fetchLogin = createAsyncThunk(
   "user/login",
   async (user: { username: string; password: string }, thunkApi) => {
     try {
-      const res = await fetch(`${process.env.BASE_URL || "http://localhost:2222"}/api/users/login`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const res = await fetch(
+        `${
+          import.meta.env.BASE_URL || "http://localhost:2222"
+        }/api/users/login`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      );
       if (res.status != 200) {
         thunkApi.rejectWithValue("Can't login, please try again");
       }
@@ -40,14 +45,19 @@ export const fetchProfileUpdate = createAsyncThunk(
   "user/profile",
   async (id: string, thunkApi) => {
     try {
-      const res = await fetch(`${process.env.BASE_URL ||"http://localhost:2222"}/api/users/profile`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage["Authorization"]!,
-        },
-        body: JSON.stringify({ id }),
-      });
+      const res = await fetch(
+        `${
+          import.meta.env.BASE_URL || "http://localhost:2222"
+        }/api/users/profile`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage["Authorization"]!,
+          },
+          body: JSON.stringify({ id }),
+        }
+      );
       if (res.status != 200) {
         thunkApi.rejectWithValue("Can't update profile, please try again");
       }

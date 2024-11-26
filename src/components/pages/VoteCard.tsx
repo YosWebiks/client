@@ -13,7 +13,7 @@ export default function VoteCard({ candidate }: props) {
 
   const handleVote = async () => {
     try {
-      const data = await fetch(`${process.env.BASE_URL ||"http://localhost:2222"}/api/votes`, {
+      const data = await fetch(`${import.meta.env.BASE_URL ||"http://localhost:2222"}/api/votes`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
